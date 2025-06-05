@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  alarm_videoreg:
+    container_name: alarm_videoreg
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - ${PORT}:${PORT}
+    env_file: .env
+
