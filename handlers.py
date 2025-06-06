@@ -50,6 +50,10 @@ def process_event(data: str) -> None:
         if settings.TELEGRAM_SEND_MESSAGE:
             message = format_telegram_message(json_data)
             send_telegram_message(message)
+        else:
+            logging.info(
+                "Отправка сообщения в Telegram отключена в настройках."
+            )
     else:
         logging.info(f'Событие "{event}" типа "{type_message}" исключено.')
 

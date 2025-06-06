@@ -5,6 +5,7 @@ import sys
 from config import settings
 from handlers import process_event
 from logger import setup_logger
+from telegram import send_telegram_message
 
 setup_logger()
 
@@ -16,7 +17,18 @@ def run_server():
         server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         server_socket.bind((settings.HOST, settings.PORT))
         server_socket.listen()
-        logging.info(f"Сервер запущен и слушает на порту {settings.PORT}...")
+
+        message = (
+            f"Alarm Video Recorder to Zabbix Forwarder запущен. "
+            f"Принимает соединения на порту {settings.PORT}. "
+            f"Cервер Zabbix: {settings.IP_ZABBIX}:{settings.PORT_ZABBIX} "
+            f"Уведомления в Telegram "
+        )
+        message += (
+            "ВКЛЮЧЕНЫ" if settings.TELEGRAM_SEND_MESSAGE else "ВЫКЛЮЧЕНЫ"
+        )
+        logging.info(message)
+        send_telegram_message(send_message=True, message=message)
 
         try:
             while True:
