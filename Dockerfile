@@ -4,13 +4,6 @@ WORKDIR /app
 COPY ./requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY config.py .
-COPY handlers.py .
-COPY logger.py .
-COPY main.py .
-COPY requirements.txt .
-COPY telegram.py .
-COPY utils.py .
-COPY zbx.py .
+COPY config.py handlers.py logger.py main.py telegram.py utils.py zbx.py ./
 
 CMD ["python", "main.py"]
